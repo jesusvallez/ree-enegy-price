@@ -11,7 +11,7 @@ const COLORS = {
   DARK_GRAY: '#6C757D',
 }
 
-const INTERVAL = 8
+const INTERVAL = 20
 const NUM_HIGHLIGHT = 4
 
 /**
