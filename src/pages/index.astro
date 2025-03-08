@@ -110,3 +110,72 @@ import Layout from '@/layouts/Layout.astro'
     </section>
   </main>
 </Layout>
+
+<script>
+  import ApexCharts from 'apexcharts'
+  import type { REE } from '../types'
+
+  import { generateURL, getPrices } from '@/helpers'
+  import { generateChartConfig } from '@/helpers/chart-generator'
+  import { generateTableConfig } from '@/helpers/table-generator'
+
+  const $ = document.querySelector.bind(document)
+  const CHART = $('#chart')
+  const CHART_LOADER = $('#chart-loader')
+  const TABLE = $('#table')
+  const SWITCH = $('#switch')
+
+  const apiUrl = generateURL()
+  const data: REE | null = await fetch(apiUrl)
+    .then((response) => response.json())
+    .catch((error) => {
+      console.error('Error fetching data', error)
+      return null
+    })
+
+  if (data) {
+    const { prices, tomorrowPrices } = getPrices(data)
+    const hasTomorrowPrices = tomorrowPrices.length > 0
+
+    if (hasTomorrowPrices && SWITCH) {
+      SWITCH.removeAttribute('disabled')
+    }
+
+    const todayChartConfig = generateChartConfig(prices)
+    const tomorrowChartConfig = hasTomorrowPrices ? generateChartConfig(tomorrowPrices) : {}
+
+    var chart = new ApexCharts(CHART, todayChartConfig)
+
+    chart.render().then(() => {
+      if (CHART_LOADER) {
+        CHART_LOADER.remove()
+
+        if (TABLE) {
+          const tBody = generateTableConfig(prices, true)
+          TABLE.innerHTML = tBody.innerHTML
+        }
+      }
+    })
+
+    if (SWITCH) {
+      SWITCH.addEventListener('change', (event) => {
+        if (event.target instanceof HTMLInputElement && event.target.checked && hasTomorrowPrices) {
+          chart.updateOptions(tomorrowChartConfig)
+          chart.clearAnnotations()
+
+          if (TABLE) {
+            const tBody = generateTableConfig(tomorrowPrices, false)
+            TABLE.innerHTML = tBody.innerHTML
+          }
+        } else {
+          chart.updateOptions(todayChartConfig)
+
+          if (TABLE) {
+            const tBody = generateTableConfig(prices, true)
+            TABLE.innerHTML = tBody.innerHTML
+          }
+        }
+      })
+    }
+  }
+</script>
