@@ -1,1 +1,7 @@
 @import 'tailwindcss';
+
+@theme {
+  --color-max: #f93827;
+  --color-min: #16c47f;
+  --color-med: #ffd65a;
+}
