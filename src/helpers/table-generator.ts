@@ -1,6 +1,6 @@
 import { COLORS, generateHourlyPriceData, getCurrentHour } from '.'
 
-export const generateTableConfig = (prices: number[], enableHidePreviusHours = false) => {
+export const generateTableConfig = (prices: number[], todayPrices = false) => {
   const pricesByHour = generateHourlyPriceData(prices)
   const tBody = document.createElement('tbody')
 
@@ -11,14 +11,14 @@ export const generateTableConfig = (prices: number[], enableHidePreviusHours = f
     // if the hour is greater than the current hour, we don't show it
     // adding 1 to the current hour to show the previous hour if enableHidePreviusHours is false
     const currentHour = getCurrentHour()
-    if (hour + 1 < currentHour && enableHidePreviusHours) return
+    if (hour + 1 < currentHour && todayPrices) return
 
     const tr = document.createElement('tr')
     const diffNextHour = index === pricesByHour.length - 1 ? 0 : pricesByHour[index + 1].price - price
     const diffNextHourFixed = (diffNextHour / 1000).toFixed(3)
     const diffNextHourFixedWithSign = diffNextHour / 1000 > 0 ? `+${diffNextHourFixed}` : diffNextHourFixed
 
-    if (hour === currentHour) {
+    if (hour === currentHour && todayPrices) {
       tr.style.backgroundColor = COLORS.CURRENT_HOUR
     }
 
