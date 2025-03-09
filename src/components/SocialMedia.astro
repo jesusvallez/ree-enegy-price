@@ -1,0 +1,39 @@
+---
+import Github from '~/components/icons/Github.astro'
+import Linkedin from '~/components/icons/Linkedin.astro'
+
+import { type SocialMedia } from '~/@types'
+
+interface Props {
+  items: SocialMedia
+}
+
+const { items } = Astro.props
+---
+
+<div class="flex flex-row gap-4">
+  {
+    Object.entries(items).map(([key, value]) => {
+      switch (key) {
+        case 'github':
+          return (
+            <a href={value} rel="noreferrer noopener" target="_blank" title="GitHub">
+              <span class="sr-only">GitHub</span>
+              <Github class="h-6 w-6 hover:bg-transparent hover:text-white focus:outline-none focus:ring active:text-white" />
+            </a>
+          )
+
+        case 'linkedin':
+          return (
+            <a href={value} rel="noreferrer noopener" target="_blank" title="LinkedIn">
+              <span class="sr-only">LinkedIn</span>
+              <Linkedin class="h-6 w-6 hover:bg-transparent hover:text-white focus:outline-none focus:ring active:text-white" />
+            </a>
+          )
+
+        default:
+          return ''
+      }
+    })
+  }
+</div>
