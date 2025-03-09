@@ -112,7 +112,6 @@ import Layout from '~/layouts/Layout.astro'
 </Layout>
 
 <script>
-  import ApexCharts from 'apexcharts'
   import type { REE } from '~/@types'
 
   import { generateURL, getPrices } from '~/helpers'
@@ -144,6 +143,7 @@ import Layout from '~/layouts/Layout.astro'
     const todayChartConfig = generateChartConfig(prices)
     const tomorrowChartConfig = hasTomorrowPrices ? generateChartConfig(tomorrowPrices) : {}
 
+    const { default: ApexCharts } = await import('apexcharts')
     var chart = new ApexCharts(CHART, todayChartConfig)
 
     chart.render().then(() => {
