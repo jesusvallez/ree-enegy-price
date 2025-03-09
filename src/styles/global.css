@@ -1,5 +1,7 @@
 @import 'tailwindcss';
 
+/* @custom-variant dark (&:where(.dark, .dark *)); */
+
 @theme {
   --color-max: #f93827;
   --color-min: #16c47f;

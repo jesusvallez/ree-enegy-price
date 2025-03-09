@@ -1,5 +1,6 @@
 /**
- * @type {import(prettier).Config}
+ * @see https://prettier.io/docs/configuration
+ * @type {import("prettier").Config}
  */
 const config = {
   semi: false,
@@ -8,7 +9,11 @@ const config = {
   arrowParens: 'always',
   jsxSingleQuote: false,
   printWidth: 120,
-  plugins: ['prettier-plugin-astro'],
+  tailwindStylesheet: './src/styles/global.css',
+  tailwindFunctions: ['class', 'className', 'ngClass', 'class:list', '.*Cn'],
+  tailwindConfig: './tailwind.config.js',
+  plugins: ['prettier-plugin-astro', 'prettier-plugin-tailwindcss'],
+
   overrides: [{ files: '*.astro', options: { parser: 'astro' } }],
 }
 
