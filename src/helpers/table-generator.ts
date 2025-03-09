@@ -1,4 +1,4 @@
-import { COLORS, generateHourlyPriceData, getCurrentHour } from '.'
+import { COLORS, generateHourlyPriceData, getCurrentHour } from '~/helpers'
 
 export const generateTableConfig = (prices: number[], todayPrices = false) => {
   const pricesByHour = generateHourlyPriceData(prices)

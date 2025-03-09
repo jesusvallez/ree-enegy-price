@@ -1,6 +1,6 @@
 import type { ApexOptions } from 'apexcharts'
 
-import { COLORS, getTickAmount, generateHourlyPriceData, getCurrentHour, adjustMinMax } from '.'
+import { COLORS, getTickAmount, generateHourlyPriceData, getCurrentHour, adjustMinMax } from '~/helpers'
 
 export const generateChartConfig = (prices: number[]) => {
   const pricesByHour = generateHourlyPriceData(prices)

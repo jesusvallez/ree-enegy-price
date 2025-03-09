@@ -1,5 +1,5 @@
 import eslint from '@eslint/js'
-import eslintAstro from 'eslint-plugin-astro'
+import eslintPluginAstro from 'eslint-plugin-astro'
 import importPlugin from 'eslint-plugin-import'
 import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended'
 import unusedImports from 'eslint-plugin-unused-imports'
@@ -43,7 +43,7 @@ export default tseslint.config(
             },
             {
               group: 'external',
-              pattern: '@jesusvallez/**',
+              pattern: '~/**',
               position: 'after',
             },
           ],
@@ -52,13 +52,5 @@ export default tseslint.config(
     },
     extends: [eslint.configs.recommended, ...tseslint.configs.recommended, eslintPluginPrettierRecommended],
   },
-  {
-    files: ['*.astro'],
-    parser: 'astro-eslint-parser',
-    parserOptions: {
-      parser: '@typescript-eslint/parser',
-      extraFileExtensions: ['.astro'],
-    },
-    extends: [eslintAstro.configs.recommended],
-  },
+  eslintPluginAstro.configs.recommended,
 )
