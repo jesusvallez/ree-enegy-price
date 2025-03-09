@@ -1,4 +1,4 @@
-import type { Included, REE } from '@/types'
+import type { Included, REE } from '~/@types'
 
 const COLORS = {
   MAX: '#F93827',

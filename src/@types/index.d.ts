@@ -33,3 +33,8 @@ export interface PriceByHour {
   isMax: boolean
   isMin: boolean
 }
+
+export interface SocialMedia {
+  github: string
+  linkedin: string
+}

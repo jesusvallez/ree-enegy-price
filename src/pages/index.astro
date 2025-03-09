@@ -1,12 +1,12 @@
 ---
-import LightSchedule from '@/components/LightSchedule.astro'
-import Layout from '@/layouts/Layout.astro'
+import LightSchedule from '~/components/LightSchedule.astro'
+import Layout from '~/layouts/Layout.astro'
 ---
 
 <Layout>
   <main class="flex-auto">
     <section class="text-zinc-800 dark:text-zinc-100 body-font">
-      <div class="container px-5 py-24 mx-auto">
+      <div class="container px-4 py-16 mx-auto">
         <div class="flex flex-col mx-auto max-w-2xl lg:max-w-6xl">
           <header class="max-w-2xl">
             <h1 class="text-4xl font-bold tracking-tight sm:text-5xl">Precio de la energía 💡</h1>
@@ -81,7 +81,7 @@ import Layout from '@/layouts/Layout.astro'
                   </path>
                 </svg>
               </div>
-              <span class="sr-only">Loading...</span>
+              <span class="sr-only">Cargando gráfico de precios...</span>
             </div>
           </div>
 
@@ -113,11 +113,11 @@ import Layout from '@/layouts/Layout.astro'
 
 <script>
   import ApexCharts from 'apexcharts'
-  import type { REE } from '../types'
+  import type { REE } from '~/@types'
 
-  import { generateURL, getPrices } from '@/helpers'
-  import { generateChartConfig } from '@/helpers/chart-generator'
-  import { generateTableConfig } from '@/helpers/table-generator'
+  import { generateURL, getPrices } from '~/helpers'
+  import { generateChartConfig } from '~/helpers/chart-generator'
+  import { generateTableConfig } from '~/helpers/table-generator'
 
   const $ = document.querySelector.bind(document)
   const CHART = $('#chart')
