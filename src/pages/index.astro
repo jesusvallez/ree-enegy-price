@@ -17,7 +17,7 @@ import Layout from '~/layouts/Layout.astro'
                 href="https://www.esios.ree.es/es"
                 target="_blank"
                 rel="noopener noreferrer"
-                class="text-blue-300 underline">REE</a
+                class="text-blue-600 underline dark:text-blue-300">REE</a
               >.
             </p>
             <p class="text-base text-zinc-600 dark:text-zinc-400">
@@ -26,11 +26,13 @@ import Layout from '~/layouts/Layout.astro'
           </header>
 
           <LightSchedule>
-            <div class="flew-row inline-flex max-w-md gap-2 self-center sm:flex-col">
+            <div
+              id="switch"
+              style={{ display: 'none' }}
+              class="flew-row inline-flex max-w-md gap-2 self-center sm:flex-col"
+            >
               <div class="relative inline-block h-5 w-11">
                 <input
-                  disabled
-                  id="switch"
                   type="checkbox"
                   class:list={[
                     'peer h-5 w-11 cursor-pointer appearance-none rounded-full transition-colors duration-300',
@@ -52,15 +54,14 @@ import Layout from '~/layouts/Layout.astro'
                 <div>
                   <p class="font-medium">Precio para mañana</p>
                   <p class="dark:text-zinc-500">
-                    Si quieres saber el precio de la electricidad para mañana, activa esta opción cuando esté
-                    disponible.
+                    Activa esta opción si quieres saber el precio de la electricidad para mañana.
                   </p>
                 </div>
               </label>
             </div>
           </LightSchedule>
 
-          <div class="mt-8 flex h-[355px] items-center justify-center" id="chart">
+          <div class="mt-4 flex h-[355px] items-center justify-center" id="chart">
             <div role="status" id="chart-loader">
               <div
                 class="grid min-h-[140px] w-full place-items-center overflow-x-scroll rounded-lg p-6 lg:overflow-visible"
@@ -147,7 +148,7 @@ import Layout from '~/layouts/Layout.astro'
     const hasTomorrowPrices = tomorrowPrices.length > 0
 
     if (hasTomorrowPrices && SWITCH) {
-      SWITCH.removeAttribute('disabled')
+      SWITCH.removeAttribute('style')
     }
 
     const todayChartConfig = generateChartConfig(prices)
@@ -164,6 +165,21 @@ import Layout from '~/layouts/Layout.astro'
           const tBody = generateTableConfig(prices, true)
           TABLE.innerHTML = tBody.innerHTML
         }
+      }
+    })
+
+    // add event listener prefers-color-scheme and update chart
+    // !! REFACTOR THIS CODE !!
+    // should use updateOptions -> theme -> mode instead of creating a new chart
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+      const todayChartConfig = generateChartConfig(prices)
+      const tomorrowChartConfig = hasTomorrowPrices ? generateChartConfig(tomorrowPrices) : {}
+      const checked = SWITCH?.querySelector('input')?.checked
+
+      if (checked && hasTomorrowPrices) {
+        chart.updateOptions(tomorrowChartConfig)
+      } else {
+        chart.updateOptions(todayChartConfig)
       }
     })
 

@@ -1,16 +1,5 @@
 import type { Included, REE } from '~/@types'
 
-const COLORS = {
-  MAX: '#F93827',
-  MIN: '#16C47F',
-  MED: '#FFD65A',
-  CURRENT_HOUR: '#252525',
-  WHITE: '#FFF',
-  ORANGE: '#FEB019',
-  GRAY: '#9E9E9E',
-  DARK_GRAY: '#6C757D',
-}
-
 const INTERVAL = 20
 const NUM_HIGHLIGHT = 4
 
@@ -120,4 +109,4 @@ export const generateURL = () => {
   return `https://apidatos.ree.es/es/datos/mercados/precios-mercados-tiempo-real?start_date=${startDate}&end_date=${endDate}&time_trunc=hour`
 }
 
-export { INTERVAL, COLORS, NUM_HIGHLIGHT, getTickAmount, adjustMinMax, formatDate, getCurrentHour, getDateRange }
+export { INTERVAL, NUM_HIGHLIGHT, getTickAmount, adjustMinMax, formatDate, getCurrentHour, getDateRange }

@@ -1,6 +1,6 @@
 import type { ApexOptions } from 'apexcharts'
 
-import { COLORS, getTickAmount, generateHourlyPriceData, getCurrentHour, adjustMinMax } from '~/helpers'
+import { getTickAmount, generateHourlyPriceData, getCurrentHour, adjustMinMax } from '~/helpers'
 
 export const generateChartConfig = (prices: number[]) => {
   const pricesByHour = generateHourlyPriceData(prices)
@@ -11,6 +11,16 @@ export const generateChartConfig = (prices: number[]) => {
 
   const { min, max } = adjustMinMax(minPrice, maxPrice)
   const tickAmount = getTickAmount(min, max)
+
+  const darkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+
+  const maxColor = darkMode ? 'var(--color-dark-max)' : 'var(--color-light-max)'
+  const medColor = darkMode ? 'var(--color-dark-med)' : 'var(--color-light-med)'
+  const minColor = darkMode ? 'var(--color-dark-min)' : 'var(--color-light-min)'
+  const textColor = darkMode ? 'var(--color-dark-text)' : 'var(--color-light-text)'
+  const gridColor = darkMode ? 'var(--color-dark-grid)' : 'var(--color-light-grid)'
+  const annotationsColor = darkMode ? 'var(--color-dark-annotations)' : 'var(--color-light-annotations)'
+  const currentHourBgColor = darkMode ? 'var(--color-dark-current-hour)' : 'var(--color-light-current-hour)'
 
   const chartConfig: ApexOptions = {
     series: [
@@ -35,7 +45,7 @@ export const generateChartConfig = (prices: number[]) => {
       text: 'Evolución del precio de la electricidad en KWh',
       align: 'center',
       style: {
-        color: '#9E9E9E',
+        color: textColor,
         fontFamily: 'inherit',
         fontWeight: 400,
       },
@@ -45,10 +55,10 @@ export const generateChartConfig = (prices: number[]) => {
     },
     colors: [
       ({ dataPointIndex }: { dataPointIndex: number }) => {
-        if (pricesByHour[dataPointIndex].isMax) return COLORS.MAX
-        if (pricesByHour[dataPointIndex].isMin) return COLORS.MIN
+        if (pricesByHour[dataPointIndex].isMax) return maxColor
+        if (pricesByHour[dataPointIndex].isMin) return minColor
 
-        return COLORS.MED
+        return medColor
       },
     ],
     stroke: {
@@ -67,7 +77,7 @@ export const generateChartConfig = (prices: number[]) => {
       },
       labels: {
         style: {
-          colors: '#9E9E9E',
+          colors: textColor,
           fontSize: '14px',
           fontFamily: 'inherit',
           fontWeight: 400,
@@ -81,7 +91,7 @@ export const generateChartConfig = (prices: number[]) => {
       tickAmount,
       labels: {
         style: {
-          colors: '#9E9E9E',
+          colors: textColor,
           fontSize: '14px',
           fontFamily: 'inherit',
           fontWeight: 400,
@@ -91,8 +101,8 @@ export const generateChartConfig = (prices: number[]) => {
     },
     grid: {
       show: true,
-      borderColor: '#6C757D',
-      strokeDashArray: 0,
+      borderColor: gridColor,
+      strokeDashArray: 3,
       xaxis: {
         lines: {
           show: false,
@@ -110,20 +120,20 @@ export const generateChartConfig = (prices: number[]) => {
         {
           y: avgPrice - 0.5,
           y2: avgPrice + 0.5,
-          borderColor: '#FFF',
-          fillColor: '#FEB019',
+          borderColor: textColor,
+          fillColor: annotationsColor,
         },
       ],
       xaxis: [
         {
           x: `${getCurrentHour()}h`,
-          borderColor: '#FEB019',
+          borderColor: annotationsColor,
           label: {
             text: 'Ahora',
-            borderColor: COLORS.CURRENT_HOUR,
+            borderColor: currentHourBgColor,
             style: {
-              color: '#FFF',
-              background: COLORS.CURRENT_HOUR,
+              color: textColor,
+              background: currentHourBgColor,
             },
           },
         },
@@ -140,7 +150,7 @@ export const generateChartConfig = (prices: number[]) => {
             tickAmount,
             labels: {
               style: {
-                colors: '#9E9E9E',
+                colors: textColor,
                 fontSize: '10px',
                 fontFamily: 'inherit',
                 fontWeight: 400,
@@ -157,7 +167,7 @@ export const generateChartConfig = (prices: number[]) => {
             labels: {
               rotateAlways: true,
               style: {
-                colors: '#9E9E9E',
+                colors: textColor,
                 fontSize: '10px',
                 fontFamily: 'inherit',
                 fontWeight: 300,
