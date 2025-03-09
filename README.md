@@ -21,6 +21,8 @@
 
 Check the electricity price in Spain and its evolution over the last 24 hours. Updated and detailed information for consumers and businesses.
 
+![ree-astro-screenshot](https://raw.githubusercontent.com/jesusvallez/ree-enegy-price/refs/heads/master/assets/screenshot.jpg)
+
 ## 🚀 Project Structure
 
 Inside this Astro project, you'll see the following folders and files:
