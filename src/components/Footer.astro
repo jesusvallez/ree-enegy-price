@@ -12,7 +12,11 @@ const socialMedia: SocialMedia = {
   class="mx-auto flex w-full flex-col-reverse items-center justify-between gap-4 pt-12 text-base text-zinc-600 md:flex-row dark:text-zinc-400"
 >
   <a
-    class="md:text-md text-xs hover:text-white hover:underline focus:ring focus:outline-none active:text-white"
+    class:list={[
+      'md:text-md text-xs hover:underline focus:ring focus:outline-none',
+      'hover:text-black active:text-black',
+      'dark:hover:text-white dark:active:text-white',
+    ]}
     target="_blank"
     rel="noopener noreferrer"
     href="https://github.com/jesusvallez/jesusvallez.github.io"
