@@ -2,8 +2,23 @@
 
 /* @custom-variant dark (&:where(.dark, .dark *)); */
 
-@theme {
-  --color-max: #f93827;
-  --color-min: #16c47f;
-  --color-med: #ffd65a;
+/* https://tailwindcss.com/docs/theme#generating-all-css-variables */
+/* to always generate all CSS variables, you can use the static theme option */
+@theme static {
+  --color-light-max: #d6281b;
+  --color-light-min: #0e9b60;
+  --color-light-med: #cdad1c;
+  --color-light-text: var(--color-zinc-800);
+  --color-light-grid: var(--color-zinc-400);
+  --color-light-annotations: #d68900;
+  --color-light-current-hour: #e1e1e1;
+
+  /* dark theme */
+  --color-dark-max: #f93827;
+  --color-dark-min: #16c47f;
+  --color-dark-med: #ffd65a;
+  --color-dark-text: var(--color-zinc-100);
+  --color-dark-grid: var(--color-zinc-600);
+  --color-dark-annotations: #feb019;
+  --color-dark-current-hour: #252525;
 }
