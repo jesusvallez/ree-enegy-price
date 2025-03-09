@@ -8,9 +8,15 @@ import tseslint from 'typescript-eslint'
 
 export default tseslint.config(
   {
-    files: ['**/*.{mjs,cjs,js,ts}'],
-    ignores: ['coverage', '**/public', '**/dist', 'pnpm-lock.yaml', 'pnpm-workspace.yaml'],
-    languageOptions: { ecmaVersion: 2020, globals: globals.browser },
+    ignores: ['**/public', '**/dist', '**/dist/*', '**/tests/*', 'coverage', '.astro/*', 'node_modules/*'],
+  },
+  eslint.configs.recommended,
+  tseslint.configs.recommended,
+  eslintPluginPrettierRecommended,
+  eslintPluginAstro.configs.recommended,
+  {
+    files: ['**/*.{mjs,cjs,js,ts,astroº}'],
+    languageOptions: { ecmaVersion: 'latest', globals: globals.browser },
     plugins: {
       import: importPlugin,
       'unused-imports': unusedImports,
@@ -50,7 +56,5 @@ export default tseslint.config(
         },
       ],
     },
-    extends: [eslint.configs.recommended, ...tseslint.configs.recommended, eslintPluginPrettierRecommended],
   },
-  eslintPluginAstro.configs.recommended,
 )
