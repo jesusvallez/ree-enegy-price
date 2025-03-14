@@ -1,4 +1,4 @@
-import type { Included, REE } from '~/@types'
+import type { Included, PriceByHour, REE } from '~/@types'
 
 const INTERVAL = 20
 const NUM_HIGHLIGHT = 4
@@ -55,12 +55,12 @@ const getDateRange = () => {
  * @param {number[]} prices List of prices
  * @return {PriceByHour[]} Formatted data
  */
-export const generateHourlyPriceData = (prices: number[]) => {
+export const generateHourlyPriceData = (prices: number[]): PriceByHour[] => {
   const sortedPrices = [...prices].sort((a, b) => a - b)
   const minValues = sortedPrices.slice(0, NUM_HIGHLIGHT)
   const maxValues = sortedPrices.slice(-NUM_HIGHLIGHT)
 
-  return prices.map((price, hour) => ({
+  return prices.map<PriceByHour>((price, hour) => ({
     price,
     hour,
     isMax: maxValues.includes(price),

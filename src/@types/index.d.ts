@@ -38,3 +38,23 @@ export interface SocialMedia {
   github: string
   linkedin: string
 }
+
+export interface ChartData {
+  pricesByHour: PriceByHour[]
+  series: number[]
+  categories: string[]
+  min: number
+  max: number
+  avgPrice: number
+  tick: number
+}
+
+export interface Colors {
+  maxColor: string
+  medColor: string
+  minColor: string
+  textColor: string
+  gridColor: string
+  annotationsColor: string
+  currentHourBgColor: string
+}
