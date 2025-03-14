@@ -48,14 +48,18 @@ Inside this Astro project, you'll see the following folders and files:
 │   ├── @types/
 │   │   └── index.d.ts
 │   ├── components/
+│   │   ├── EnergyTable.astro
 │   │   ├── Footer.astro
 │   │   ├── LightSchedule.astro
+│   │   ├── Loader.astro
 │   │   ├── SocialMedia.astro
+│   │   ├── SwitchControl.astro
 │   │   └── icons/
 │   │       ├── Github.astro
 │   │       └── Linkedin.astro
 │   ├── helpers/
 │   │   ├── chart-generator.ts
+│   │   ├── events-listeners.ts
 │   │   ├── index.ts
 │   │   └── table-generator.ts
 │   ├── layouts/
