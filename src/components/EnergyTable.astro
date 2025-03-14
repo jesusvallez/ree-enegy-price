@@ -1,0 +1,27 @@
+---
+interface Props {
+  tableId?: string
+  headers?: string[]
+}
+
+const { tableId = 'table', headers = ['Hora', 'Precio', 'Diferencia'] } = Astro.props
+---
+
+<div class="relative flex h-full w-full flex-col bg-clip-border text-gray-800 dark:text-gray-300">
+  <div class="overflow-scroll px-0">
+    <table class="w-full min-w-max table-auto text-left">
+      <thead class="font-sans text-sm font-normal antialiased">
+        <tr>
+          {
+            headers.map((header) => (
+              <th class="p-2">
+                <p class="block">{header}</p>
+              </th>
+            ))
+          }
+        </tr>
+      </thead>
+      <tbody class="font-sans text-sm font-normal antialiased" id={tableId}></tbody>
+    </table>
+  </div>
+</div>

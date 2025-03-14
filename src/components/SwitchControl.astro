@@ -1,0 +1,50 @@
+---
+interface Props {
+  id?: string
+  label?: string
+  description?: string
+  defaultHidden?: boolean
+}
+
+const {
+  id = 'switch-control',
+  label = 'Precio para mañana',
+  description = 'Activa esta opción si quieres saber el precio de la electricidad para mañana.',
+  defaultHidden = true,
+} = Astro.props
+---
+
+<div
+  id={id}
+  style={defaultHidden ? { display: 'none' } : {}}
+  class="flew-row inline-flex max-w-md gap-2 self-center sm:flex-col"
+>
+  <div class="relative inline-block h-5 w-11">
+    <input
+      id="switch"
+      type="checkbox"
+      class:list={[
+        'peer h-5 w-11 cursor-pointer appearance-none rounded-full transition-colors duration-300',
+        'bg-zinc-50 checked:bg-yellow-500 disabled:border-zinc-500 disabled:bg-zinc-500 disabled:opacity-30',
+        'dark:bg-zinc-500 dark:checked:bg-yellow-500 dark:disabled:border-zinc-50 dark:disabled:bg-zinc-50 dark:disabled:opacity-30',
+      ]}
+    />
+    <label
+      for="switch"
+      class:list={[
+        'absolute top-0 left-0 h-5 w-5 cursor-pointer rounded-full shadow-sm transition-transform duration-300',
+        'border border-slate-300 bg-white peer-checked:translate-x-6 peer-checked:border-yellow-400',
+      ]}
+    >
+    </label>
+  </div>
+
+  <label for="switch" class="cursor-pointer text-sm dark:text-zinc-300">
+    <div>
+      <p class="font-medium">{label}</p>
+      <p class="dark:text-zinc-500">
+        {description}
+      </p>
+    </div>
+  </label>
+</div>
