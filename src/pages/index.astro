@@ -52,10 +52,12 @@ import Layout from '~/layouts/Layout.astro'
 <script>
   import type { REE } from '~/@types'
   import { generateURL, getPrices } from '~/helpers'
-  import { generateChartConfig } from '~/helpers/chart-generator'
+  import { generateAnnotations, generateChartConfig, generateChartData, getColors } from '~/helpers/chart-generator'
+  import { addEventListenerDarkModeSwitch, addEventListenerTomorrowSwitch } from '~/helpers/events-listeners'
   import { generateTableConfig } from '~/helpers/table-generator'
 
   const $ = document.querySelector.bind(document)
+
   const CHART = $('#chart')
   const CHART_LOADER = $('#chart-loader')
   const TABLE = $('#table')
@@ -77,13 +79,24 @@ import Layout from '~/layouts/Layout.astro'
       SWITCH.removeAttribute('style')
     }
 
-    const todayChartConfig = generateChartConfig(prices)
-    const tomorrowChartConfig = hasTomorrowPrices ? generateChartConfig(tomorrowPrices) : {}
+    const darkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+    const lightColors = getColors({ darkMode: false })
+    const darkColors = getColors({ darkMode: true })
+
+    const todayData = generateChartData(prices)
+    const tomorrowData = generateChartData(tomorrowPrices)
+    const colors = darkMode ? darkColors : lightColors
+
+    const { xAxis, yAxis } = generateAnnotations({ avgPrice: todayData.avgPrice, colors })
+    const todayChartConfig = generateChartConfig({ ...todayData, colors })
 
     const { default: ApexCharts } = await import('apexcharts')
     const chart = new ApexCharts(CHART, todayChartConfig)
 
     chart.render().then(() => {
+      chart.addXaxisAnnotation(xAxis)
+      chart.addYaxisAnnotation(yAxis)
+
       if (CHART_LOADER) {
         CHART_LOADER.remove()
 
@@ -94,40 +107,7 @@ import Layout from '~/layouts/Layout.astro'
       }
     })
 
-    // add event listener prefers-color-scheme and update chart
-    // !! REFACTOR THIS CODE !!
-    // should use updateOptions -> theme -> mode instead of creating a new chart
-    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
-      const todayChartConfig = generateChartConfig(prices)
-      const tomorrowChartConfig = hasTomorrowPrices ? generateChartConfig(tomorrowPrices) : {}
-      const checked = SWITCH?.querySelector('input')?.checked
-
-      if (checked && hasTomorrowPrices) {
-        chart.updateOptions(tomorrowChartConfig)
-      } else {
-        chart.updateOptions(todayChartConfig)
-      }
-    })
-
-    if (SWITCH) {
-      SWITCH.addEventListener('change', (event) => {
-        if (event.target instanceof HTMLInputElement && event.target.checked && hasTomorrowPrices) {
-          chart.updateOptions(tomorrowChartConfig)
-          chart.clearAnnotations()
-
-          if (TABLE) {
-            const tBody = generateTableConfig(tomorrowPrices, false)
-            TABLE.innerHTML = tBody.innerHTML
-          }
-        } else {
-          chart.updateOptions(todayChartConfig)
-
-          if (TABLE) {
-            const tBody = generateTableConfig(prices, true)
-            TABLE.innerHTML = tBody.innerHTML
-          }
-        }
-      })
-    }
+    addEventListenerDarkModeSwitch(SWITCH, chart, todayData, tomorrowData, lightColors, darkColors)
+    addEventListenerTomorrowSwitch(SWITCH, TABLE, chart, todayData, tomorrowData, lightColors, darkColors)
   }
 </script>
