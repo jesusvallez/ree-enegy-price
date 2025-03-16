@@ -11,9 +11,7 @@ const config = {
   printWidth: 120,
   tailwindStylesheet: './src/styles/global.css',
   tailwindFunctions: ['class', 'className', 'ngClass', 'class:list', '.*Cn'],
-  tailwindConfig: './tailwind.config.js',
   plugins: ['prettier-plugin-astro', 'prettier-plugin-tailwindcss'],
-
   overrides: [{ files: '*.astro', options: { parser: 'astro' } }],
 }
 
