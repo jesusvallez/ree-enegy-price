@@ -1,5 +1,6 @@
 ---
 import { type SocialMedia } from '~/@types'
+import CV from '~/components/icons/CV.astro'
 import Github from '~/components/icons/Github.astro'
 import Linkedin from '~/components/icons/Linkedin.astro'
 
@@ -10,7 +11,7 @@ interface Props {
 const { items } = Astro.props
 ---
 
-<div class="flex flex-row gap-4">
+<div class="flex flex-row items-center justify-center gap-4 md:justify-start">
   {
     Object.entries(items).map(([key, value]) => {
       switch (key) {
@@ -35,6 +36,20 @@ const { items } = Astro.props
               <Linkedin
                 class:list={[
                   'h-6 w-6 focus:ring focus:outline-none',
+                  'hover:text-black active:text-black',
+                  'dark:hover:text-white dark:active:text-white',
+                ]}
+              />
+            </a>
+          )
+
+        case 'cv':
+          return (
+            <a href={value} rel="noreferrer noopener" target="_blank" title="LinkedIn">
+              <span class="sr-only">LinkedIn</span>
+              <CV
+                class:list={[
+                  'h-5 w-5 focus:ring focus:outline-none',
                   'hover:text-black active:text-black',
                   'dark:hover:text-white dark:active:text-white',
                 ]}

@@ -37,6 +37,7 @@ export interface PriceByHour {
 export interface SocialMedia {
   github: string
   linkedin: string
+  cv: string
 }
 
 export interface ChartData {
