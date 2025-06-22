@@ -1,7 +1,7 @@
 ---
 import type { SocialMedia } from '~/@types'
 
-import SocialMediaFooter from './SocialMedia.astro'
+import SocialMediaFooter from './SocialMediaFooter.astro'
 
 const socialMedia: SocialMedia = {
   cv: 'https://jesusvallez.com/cv.pdf',
@@ -11,7 +11,7 @@ const socialMedia: SocialMedia = {
 ---
 
 <footer
-  class="mx-auto flex w-full flex-col-reverse items-center justify-between gap-4 pt-12 text-base text-zinc-600 md:flex-row dark:text-zinc-400"
+  class="mx-auto flex w-full flex-col-reverse items-center justify-between gap-4 pt-12 text-zinc-600 md:flex-row dark:text-zinc-400"
 >
   <a
     class:list={[

@@ -9,9 +9,15 @@ interface Props {
 }
 
 const { items } = Astro.props
+
+const classList = [
+  'h-6 w-6 hover:bg-transparent focus:ring focus:outline-none',
+  'hover:text-black active:text-black',
+  'dark:hover:text-white dark:active:text-white',
+]
 ---
 
-<div class="flex flex-row items-center justify-center gap-4 md:justify-start">
+<div class="flex flex-row items-center-safe gap-4">
   {
     Object.entries(items).map(([key, value]) => {
       switch (key) {
@@ -19,13 +25,7 @@ const { items } = Astro.props
           return (
             <a href={value} rel="noreferrer noopener" target="_blank" title="GitHub">
               <span class="sr-only">GitHub</span>
-              <Github
-                class:list={[
-                  'h-6 w-6 focus:ring focus:outline-none',
-                  'hover:text-black active:text-black',
-                  'dark:hover:text-white dark:active:text-white',
-                ]}
-              />
+              <Github class:list={classList} />
             </a>
           )
 
@@ -33,13 +33,7 @@ const { items } = Astro.props
           return (
             <a href={value} rel="noreferrer noopener" target="_blank" title="LinkedIn">
               <span class="sr-only">LinkedIn</span>
-              <Linkedin
-                class:list={[
-                  'h-6 w-6 focus:ring focus:outline-none',
-                  'hover:text-black active:text-black',
-                  'dark:hover:text-white dark:active:text-white',
-                ]}
-              />
+              <Linkedin class:list={classList} />
             </a>
           )
 
@@ -47,13 +41,7 @@ const { items } = Astro.props
           return (
             <a href={value} rel="noreferrer noopener" target="_blank" title="LinkedIn">
               <span class="sr-only">LinkedIn</span>
-              <CV
-                class:list={[
-                  'h-5 w-5 focus:ring focus:outline-none',
-                  'hover:text-black active:text-black',
-                  'dark:hover:text-white dark:active:text-white',
-                ]}
-              />
+              <CV class:list={classList} />
             </a>
           )
 
