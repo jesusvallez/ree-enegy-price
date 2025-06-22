@@ -38,7 +38,7 @@ export const generateTableConfig = (prices: number[], todayPrices = false) => {
           ${(price / 1000).toFixed(3)} €/kWh
         </p>
       </td>
-      <td class="p-2">
+      <td class="p-2 text-right">
         <p class="block">
           ${diffNextHourFixedWithSign}
         </p>
