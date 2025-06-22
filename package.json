@@ -14,10 +14,10 @@
     "eslint-inspector": "npx @eslint/config-inspector@latest"
   },
   "dependencies": {
-    "@tailwindcss/vite": "4.1.5",
+    "@tailwindcss/vite": "4.1.10",
     "apexcharts": "4.7.0",
-    "astro": "5.7.10",
-    "tailwindcss": "4.1.5"
+    "astro": "5.10.0",
+    "tailwindcss": "4.1.10"
   },
   "devDependencies": {
     "@commitlint/cli": "19.8.0",
